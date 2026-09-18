@@ -3,576 +3,213 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Your SharePal Asset Partner Savings</title>
+<title>SharePal — WhatsApp Order Journey</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;700;800&family=Hanken+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
-
   :root {
-    --blue: #1944E8;
-    --blue-dark: #1237BB;
-    --navy: #030D31;
-    --lime: #9FFE02;
-    --lime-dark: #7FC904;
-    --green-text: #1944E8;
-    --ink: #030D31;
-    --muted: #5A6B8A;
-    --mist: #E9ECFF;
-    --border: #D1DAFB;
-    --paper: #FFFFFF;
+    --bg: #0B0F1A;
+    --blue: #1E5AA8;
+    --blue-light: #cfe0f7;
+    --gray: #3A4150;
+    --gray-light: #C7CCD6;
+    --teal: #0E6B4F;
+    --teal-light: #bdeeda;
+    --amber: #B87333;
+    --amber-light: #ffe3c2;
+    --line: #4A5262;
+    --muted: #9AA3B2;
+    --border: #232B3D;
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   html, body {
     font-family: 'Hanken Grotesk', sans-serif;
-    background: #F4F6FF;
-    color: var(--ink);
-    -webkit-font-smoothing: antialiased;
+    background: var(--bg); color: #fff;
   }
+  h1, h2, h3 { font-family: 'Bricolage Grotesque', sans-serif; }
 
-  h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', sans-serif; }
+  .container { max-width: 900px; margin: 0 auto; padding: 56px 24px 100px; }
 
-  .page {
-    max-width: 640px;
-    margin: 0 auto;
-    padding: 0 0 100px;
+  .page-title { font-size: 30px; font-weight: 800; text-align: center; margin-bottom: 8px; }
+  .page-subtitle { font-size: 15px; color: var(--muted); text-align: center; font-style: italic; margin-bottom: 60px; }
+
+  .flow { display: flex; flex-direction: column; align-items: center; }
+
+  .node-box {
+    border-radius: 14px; padding: 18px 30px; text-align: center; min-width: 260px;
   }
+  .node-box .t { font-size: 16px; font-weight: 700; }
+  .node-box .s { font-size: 13px; margin-top: 4px; opacity: 0.85; }
 
-  /* ── HEADER ── */
-  .page-header {
-    background: var(--blue);
-    padding: 18px 24px;
-  }
-  .page-logo {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-weight: 800; font-size: 20px; color: #fff;
-  }
-  .page-logo span { color: var(--lime); }
+  .node-box.gray  { background: var(--gray); }
+  .node-box.blue  { background: var(--blue); border: 1px solid #3f7fd6; }
+  .node-box.teal  { background: var(--teal); border: 1px solid #1c9c72; }
+  .node-box.amber { background: var(--amber); border: 1px solid #d99a4f; }
 
-  /* ── PERSONALIZED ORDER RECAP ── */
-  .order-hero {
-    background: transparent;
-    padding: 30px 24px 26px;
-    text-align: center;
+  .stem { width: 2px; height: 36px; background: var(--line); }
+
+  .node-link { text-decoration: none; display: block; transition: transform 0.15s; color: inherit; }
+  .node-link * { color: inherit; }
+  .node-link:hover { transform: translateY(-2px); }
+
+  .branch-wrap { position: relative; width: 560px; max-width: 100%; }
+  .branch-bar {
+    position: absolute; top: 0; left: 22.5%; width: 55%; height: 2px;
+    background: var(--line);
+  }
+  .branch-row {
+    display: flex; justify-content: space-between; padding-top: 0;
     position: relative;
-    overflow: hidden;
   }
-  .confetti {
-    position: absolute; border-radius: 2px; pointer-events: none;
-  }
-  .order-eyebrow {
-    display: inline-block; font-size: 11px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--lime); background: rgba(159,254,2,0.12);
-    border: 1px solid rgba(159,254,2,0.3);
-    padding: 5px 12px; border-radius: 100px; margin-bottom: 14px;
-  }
-  .order-id-line {
-    font-size: 12px; color: rgba(255,255,255,0.6); margin-bottom: 18px;
-  }
-  .order-id-line b { color: #fff; font-weight: 700; }
-
-  .order-price-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(255,255,255,0.12);
-    border-radius: 16px;
-    padding: 18px 20px;
-    max-width: 420px;
-    margin: 0 auto;
-  }
-  .order-row {
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 13px; color: rgba(255,255,255,0.65);
-    padding: 8px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.08);
-  }
-  .order-row .pos { color: var(--lime); font-weight: 700; }
-  .order-row.final {
-    border-bottom: none; padding-top: 12px;
-    align-items: baseline;
-  }
-  .order-row.final span:first-child {
-    font-size: 13px; font-weight: 700; color: #fff;
-  }
-  .order-final-num {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 30px; font-weight: 800; color: var(--lime);
+  .branch-col { display: flex; flex-direction: column; align-items: center; width: 240px; }
+  .branch-stub { width: 2px; height: 30px; background: var(--line); }
+  .branch-label {
+    font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--muted); margin-bottom: 10px;
   }
 
-  .order-cta-btn {
-    display: inline-block; width: auto; margin-top: 18px;
-    background: var(--lime); color: var(--ink);
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 14px; font-weight: 800;
-    padding: 14px 32px; border-radius: 100px; border: none; cursor: pointer;
-    text-decoration: none; text-align: center;
+  .file-tag {
+    display: inline-block; margin-top: 12px;
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 11px; font-weight: 700;
+    background: rgba(255,255,255,0.12); color: #fff;
+    padding: 4px 10px; border-radius: 100px;
   }
 
-  .order-earning-strip {
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    max-width: 420px; margin: 14px auto 0;
-    background: rgba(159,254,2,0.08); border: 1px solid rgba(159,254,2,0.25);
-    border-radius: 12px; padding: 11px 16px;
+  /* ── DETAILS SECTION: TIER / ASSET LOGIC ── */
+  .details-card {
+    margin-top: 80px; background: #11162423; background: #11162a;
+    border: 1px solid var(--border); border-radius: 16px; padding: 28px 30px;
   }
-  .oe-icon { font-size: 15px; }
-  .oe-text { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4; }
-  .oe-text b { color: var(--lime); font-weight: 800; }
-  .oe-text span { color: rgba(255,255,255,0.85); }
+  .details-card h3 { font-size: 16px; margin-bottom: 8px; }
+  .details-card > p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
 
-  /* ── HERO WRAPPER (shared continuous gradient) ── */
-  .hero-wrapper {
-    background: linear-gradient(180deg, var(--navy) 0%, #0D1B6E 100%);
+  .tier-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .tier-table th {
+    text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
+    color: var(--muted); padding: 8px 10px; border-bottom: 1px solid var(--border);
   }
+  .tier-table td { padding: 10px 10px; border-bottom: 1px solid var(--border); color: #E5E9F0; }
+  .tier-table tr:last-child td { border-bottom: none; }
+  .tier-table .mono { font-family: 'Bricolage Grotesque', sans-serif; font-weight: 700; color: var(--lime, #9FFE02); }
 
-  /* ── INTRO SECTION ── */
-  .intro-section {
-    background: transparent;
-    padding: 30px 32px 26px; text-align: center;
+  .calc-note {
+    margin-top: 18px; font-size: 12.5px; color: var(--muted); line-height: 1.7;
+    background: rgba(255,255,255,0.03); border-radius: 10px; padding: 12px 16px;
   }
-  .intro-eyebrow {
-    display: inline-block; font-size: 11px; font-weight: 700;
-    letter-spacing: 1.5px; text-transform: uppercase;
-    color: var(--lime); background: rgba(159,254,2,0.12);
-    border: 1px solid rgba(159,254,2,0.3);
-    padding: 5px 12px; border-radius: 100px; margin-bottom: 14px;
-  }
-  .intro-section h2 {
-    color: #fff; font-size: 22px; font-weight: 800; line-height: 1.3; margin-bottom: 10px;
-  }
-  .intro-section h2 .lime { color: var(--lime); }
-  .intro-section p {
-    font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.7;
-    max-width: 460px; margin: 0 auto;
+  .calc-note code {
+    background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px;
+    font-size: 12px; color: #cfe0f7;
   }
 
-  /* ── BODY CONTAINER ── */
-  .body-section { padding: 26px 24px; }
-  .body-section + .body-section { border-top: 1px solid var(--border); }
-  .body-section h3 {
-    font-size: 15px; font-weight: 800; text-transform: uppercase;
-    letter-spacing: 0.5px; margin-bottom: 14px; color: var(--muted);
-    text-align: center;
+  .legend {
+    margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--border);
   }
-  .section-subtext {
-    text-align: center; font-size: 12px; color: var(--muted);
-    margin-top: -8px; margin-bottom: 16px;
+  .legend p { font-size: 13px; color: var(--muted); line-height: 1.8; margin-bottom: 4px; }
+  .legend code {
+    background: rgba(255,255,255,0.08); padding: 1px 6px; border-radius: 4px;
+    font-size: 12px; color: #cfe0f7;
   }
 
-  /* ── TWO-CATEGORY BENEFITS BLOCK ── */
-  .benefits-block {
-    background: linear-gradient(135deg, var(--navy) 0%, #0D1B6E 100%);
-    border-radius: 16px; padding: 16px;
-  }
-  .bb-divider { height: 1px; background: rgba(255,255,255,0.10); margin: 14px 0; }
-  .bb-label {
-    display: flex; align-items: center; gap: 7px;
-    font-size: 10px; font-weight: 700; letter-spacing: 1.2px;
-    text-transform: uppercase; margin-bottom: 10px;
-  }
-  .bb-label.earn { color: var(--lime); }
-  .bb-label.rent { color: rgba(255,255,255,0.70); }
-  .bb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 6px var(--lime); flex-shrink: 0; }
-  .bb-line { flex: 1; height: 1px; }
-  .bb-label.earn .bb-line { background: rgba(159,254,2,0.20); }
-  .bb-label.rent .bb-line { background: rgba(255,255,255,0.10); }
-  .bb-tiles { display: grid; gap: 8px; }
-  .bb-earn-tiles { grid-template-columns: repeat(2, 1fr); }
-  .bb-rent-tiles { grid-template-columns: repeat(3, 1fr); }
-  .bb-tile { border-radius: 12px; padding: 14px 8px; text-align: center; }
-  .bb-tile.earn { background: rgba(159,254,2,0.07); border: 1px solid rgba(159,254,2,0.22); }
-  .bb-tile.rent { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.10); }
-  .bb-tile-icon { font-size: 18px; margin-bottom: 6px; }
-  .bb-tile-prefix { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.50); margin-bottom: 2px; }
-  .bb-tile-value {
-    font-family: 'Bricolage Grotesque', sans-serif;
-    font-size: 14px; font-weight: 800; color: var(--lime);
-    margin-bottom: 4px; white-space: nowrap;
-  }
-  .bb-tile-value span { font-size: 10px; font-weight: 600; color: rgba(255,255,255,0.50); }
-  .bb-tile-label { font-size: 11px; color: rgba(255,255,255,0.75); line-height: 1.3; }
-
-  /* ── STEP CARDS ── */
-  .step-cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .step-card { background: #F4F6FF; border-radius: 14px; padding: 16px; text-align: center; }
-  .step-card-icon {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: #fff; border: 2px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    font-size: 18px; margin: 0 auto 10px;
-  }
-  .step-card-icon.blue { border-color: var(--blue); }
-  .step-card-icon.lime { border-color: var(--lime-dark); }
-  .step-card h4 { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
-  .step-card p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
-
-  /* ── EXAMPLE CARD (tier-matched asset) ── */
-  .example-card { background: #F4F6FF; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
-  .example-head {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 14px 16px 12px; border-bottom: 1px solid var(--border);
-  }
-  .example-tag { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); }
-  .example-asset { font-size: 13px; font-weight: 800; color: var(--ink); }
-  .example-cols { display: grid; grid-template-columns: 1fr 1fr 1fr; }
-  .example-col { padding: 14px 12px; position: relative; }
-  .example-col + .example-col::before {
-    content: ''; position: absolute; left: 0; top: 12px; bottom: 12px; width: 1px; background: var(--border);
-  }
-  .example-col-label { font-size: 10px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
-  .example-item { margin-bottom: 10px; }
-  .example-item:last-child { margin-bottom: 0; }
-  .example-item-name { font-size: 12px; color: var(--muted); margin-bottom: 3px; line-height: 1.3; }
-  .example-item-val { font-family: 'Bricolage Grotesque', sans-serif; font-size: 17px; font-weight: 800; color: var(--ink); }
-  .example-item-val.green { color: var(--green-text); }
-  .example-item-val sub { font-size: 11px; font-weight: 600; color: var(--muted); vertical-align: baseline; }
-  .example-item-sub { font-size: 10.5px; color: var(--muted); margin-top: 2px; }
-  .example-total-bar {
-    display: flex; align-items: center; justify-content: space-between;
-    background: var(--navy); padding: 12px 16px;
-  }
-  .example-total-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,.7); }
-  .example-total-val { font-family: 'Bricolage Grotesque', sans-serif; font-size: 18px; font-weight: 800; color: var(--lime); }
-
-  /* ── SAVINGS BANNER ── */
-  .savings-banner { background: var(--navy); border-radius: 14px; padding: 16px 20px; text-align: center; }
-  .savings-banner span { color: var(--lime); font-weight: 800; }
-  .savings-banner p { color: rgba(255,255,255,0.85); font-size: 13px; line-height: 1.5; }
-
-  /* ── FAQ LINK ── */
-  .faq-link-block { text-align: center; }
-  .faq-link { font-size: 13px; color: var(--blue); font-weight: 600; text-decoration: none; }
-
-  /* ── DISCLAIMER ── */
-  .disclaimer { font-size: 10px; color: var(--muted); line-height: 1.6; text-align: center; padding: 0 24px; }
-
-  /* ── STICKY CTA ── */
-  .sticky-cta {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    background: #fff; border-top: 1px solid var(--border);
-    padding: 14px 20px; max-width: 640px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between; gap: 14px;
-    box-shadow: 0 -8px 24px rgba(3,13,49,0.08);
-  }
-  .sticky-cta-text { font-size: 12px; color: var(--ink); font-weight: 600; }
-  .sticky-cta-text span { color: var(--blue); }
-  .sticky-cta-btn {
-    background: var(--lime); color: var(--ink);
-    font-family: 'Bricolage Grotesque', sans-serif; font-size: 13px; font-weight: 800;
-    padding: 12px 22px; border-radius: 100px; border: none; cursor: pointer;
-    white-space: nowrap; text-decoration: none;
-  }
-
-  /* ── FLOATING FAB: ONE BUTTON, EXPANDS TO TWO OPTIONS ── */
-  .fab-stack {
-    position: fixed; right: 18px; bottom: 92px;
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    z-index: 50;
-  }
-  .fab-btn {
-    width: 52px; height: 52px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px; text-decoration: none; color: #fff;
-    transition: opacity 0.2s ease, transform 0.2s ease;
-  }
-  .fab-btn.whatsapp { background: #25D366; box-shadow: 0 8px 20px rgba(37,211,102,0.4); }
-  .fab-btn.call { background: var(--blue); box-shadow: 0 8px 20px rgba(25,68,232,0.4); }
-
-  .fab-options {
-    display: flex; flex-direction: column; align-items: center; gap: 12px;
-    opacity: 0; pointer-events: none; transform: translateY(10px);
-  }
-  .fab-stack.open .fab-options {
-    opacity: 1; pointer-events: auto; transform: translateY(0);
-  }
-
-  .fab-main {
-    height: 52px; padding: 0 20px 0 16px; border-radius: 100px;
-    background: var(--navy); color: #fff;
-    display: flex; align-items: center; gap: 8px;
-    font-family: 'Bricolage Grotesque', sans-serif; font-size: 13px; font-weight: 700;
-    border: none; cursor: pointer;
-    box-shadow: 0 8px 20px rgba(3,13,49,0.35);
-    transition: transform 0.2s ease;
-    white-space: nowrap;
-  }
-  .fab-main .fab-icon { font-size: 20px; }
-  .fab-stack.open .fab-main { transform: scale(1.05); }
-
-  @media (max-width: 480px) {
-    .step-cards-grid { grid-template-columns: 1fr; }
-    .example-cols { grid-template-columns: 1fr; }
-    .example-col + .example-col::before { display: none; }
-    .example-col + .example-col { border-top: 1px solid var(--border); }
-    .sticky-cta { flex-direction: column; text-align: center; }
-    .sticky-cta-btn { width: 100%; }
-    .whatsapp-fab { bottom: 130px; }
-    .fab-stack { bottom: 130px; }
+  @media (max-width: 600px) {
+    .branch-wrap { width: 100%; }
+    .branch-row { flex-direction: column; align-items: center; gap: 24px; }
+    .branch-col { width: 100%; }
+    .branch-bar { display: none; }
+    .branch-stub { height: 20px; }
   }
 </style>
 </head>
 <body>
 
-<div class="page">
+<div class="container">
+  <h1 class="page-title">SharePal Asset Partner — Order Journey</h1>
+  <p class="page-subtitle">Click any blue box to open it in a new tab</p>
 
-  <div class="page-header">
-    <svg width="120" height="26" viewBox="0 0 168 36" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M4 23.3284H11.0467C11.2576 24.7166 12.927 25.7183 15.0181 25.7183C17.1796 25.7183 18.5327 24.8572 18.5327 23.592C18.5327 22.6606 18.0582 22.1159 15.6683 21.3778L13.0148 20.5695C8.77979 19.2867 6.53048 17.0022 6.53048 13.5404C6.53048 8.37397 10.994 5 17.1444 5C23.6815 5 27.6705 7.98737 27.7057 13.0132H20.905C20.8523 11.5019 19.4289 10.5003 17.3202 10.5003C15.3696 10.5003 14.1043 11.3789 14.1043 12.5739C14.1043 13.5931 14.8072 14.296 16.8457 14.8935L19.6222 15.7018C24.1735 17.0198 26.1417 18.9176 26.1417 22.5728C26.1417 27.9149 21.5728 31.2361 14.8775 31.2361C8.04173 31.2361 4.01757 28.3366 4 23.3284ZM25.6943 30.7968L31.0891 5.43932H38.0128L36.0973 14.3311H36.2379C37.6789 12.2224 39.8579 11.0099 42.5465 11.0099C46.0962 11.0099 48.451 13.1713 48.451 16.3872C48.451 17.1076 48.3631 17.916 48.1874 18.7595L45.6569 30.7968H38.7508L41.0529 19.8314C41.1407 19.3745 41.1759 19.0055 41.1759 18.6365C41.1759 17.3009 40.0688 16.3169 38.5399 16.3169C36.8705 16.3169 35.4296 17.5821 35.043 19.4097L32.6355 30.7968H25.6943ZM60.6761 30.7968H67.6349L71.7645 11.3965H64.9639L64.2961 14.5244H63.9622C63.3472 12.4509 61.1682 11.1153 58.3741 11.1153C52.8035 11.1153 48.6739 16.4926 48.6739 23.715C48.6739 28.2663 51.1517 31.078 55.1407 31.078C57.5833 31.078 59.5163 30.0763 60.9397 28.0555H61.256L60.6761 30.7968ZM62.7497 19.9017C62.7497 23.0297 60.8167 25.7886 58.6025 25.7886C56.9683 25.7886 55.8788 24.4882 55.8788 22.52C55.8788 19.2339 57.7415 16.5805 60.0611 16.5805C61.6954 16.5805 62.7497 17.8808 62.7497 19.9017ZM68.9061 30.7968L73.0708 11.3965H79.8715L79.3092 14.2081H79.4497C80.3284 12.3981 82.0505 11.1153 84.1417 11.1153C85.2487 11.1153 86.0395 11.2735 86.8127 11.6249L85.4948 17.6524C84.5986 17.2306 83.7551 16.9319 82.5777 16.9319C80.2757 16.9319 78.6062 18.2147 78.0263 20.8858L75.8825 30.7968H68.9061ZM85.3022 22.397C85.3022 27.9852 88.9221 31.2713 94.4751 31.2713C98.1727 31.2713 101.446 28.9801 103.218 25.3735C95.5507 25.8389 91.8447 22.5476 91.8447 22.5476C91.8447 22.5476 98.2072 23.6943 104.33 22.0562C104.429 21.5558 104.503 21.0411 104.551 20.5136C105.123 14.2292 101.504 10.9044 96.3027 10.9044C89.6954 10.9044 85.3022 15.7545 85.3022 22.397ZM92.1907 18.8122H98.7629C98.798 18.7243 98.8156 18.4432 98.8156 18.2499C98.8156 16.7738 97.6558 15.7194 95.9864 15.7194C94.1764 15.7194 92.6476 16.9671 92.1907 18.8122Z" fill="white"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" d="M110.527 5H120.439C126.618 5 130.079 8.26176 130.079 13.1363C130.079 19.8048 125.404 24.0088 117.902 24.0088H114.187L112.665 31.1484H105L106.302 24.9873C114.218 23.3937 118.866 17.3273 118.866 17.3273L121.506 19.5687L123.455 8.8785L113.222 12.5353L115.705 14.6436C115.705 14.6436 112.812 18.6806 107.126 21.092L110.527 5ZM148.763 31.1484H141.587L142.185 28.3216H141.859C140.391 30.4055 138.398 31.4384 135.879 31.4384C131.765 31.4384 129.21 28.539 129.21 23.8457C129.21 16.398 133.469 10.853 139.213 10.853C142.094 10.853 144.341 12.2302 144.975 14.3685H145.32L146.008 11.143H153.021L148.763 31.1484ZM139.449 25.984C141.732 25.984 143.725 23.139 143.725 19.9135C143.725 17.8296 142.638 16.4886 140.953 16.4886C138.561 16.4886 136.64 19.2249 136.64 22.6135C136.64 24.643 137.763 25.984 139.449 25.984ZM156.845 5L151.282 31.1484H158.458L164.021 5H156.845Z" fill="#9EFF00"/>
-    </svg>
-  </div>
+  <div class="flow">
 
-  <!-- HERO WRAPPER: INTRO + ORDER RECAP SHARE ONE CONTINUOUS BACKGROUND -->
-  <div class="hero-wrapper">
-
-  <!-- INTRO -->
-  <div class="intro-section">
-    <div class="intro-eyebrow">Introducing</div>
-    <h2>SharePal <span class="lime">Asset Partner</span> Program</h2>
-    <p>As an Asset Partner, you buy the assets that power SharePal's rental platform. In return, you earn secured monthly payouts straight to your bank, plus exclusive perks that make your own rentals cheaper too.</p>
-  </div>
-
-  <!-- PERSONALIZED ORDER RECAP -->
-  <div class="order-hero">
-    <span class="confetti" style="top:12px; left:8%; width:8px; height:8px; background:var(--lime); opacity:0.35; transform:rotate(20deg);"></span>
-    <span class="confetti" style="top:40px; left:88%; width:6px; height:6px; background:#fff; opacity:0.25; transform:rotate(-15deg);"></span>
-    <span class="confetti" style="top:5px; left:75%; width:10px; height:10px; background:var(--blue); opacity:0.3; border-radius:50%;"></span>
-    <span class="confetti" style="top:60px; left:15%; width:7px; height:7px; background:#fff; opacity:0.2; border-radius:50%;"></span>
-    <span class="confetti" style="top:20px; left:50%; width:6px; height:6px; background:var(--lime); opacity:0.25; transform:rotate(45deg);"></span>
-    <span class="confetti" style="top:70px; left:92%; width:8px; height:8px; background:var(--lime); opacity:0.2; border-radius:50%;"></span>
-    <div class="order-eyebrow">🎁 Offer Based On Your Order</div>
-    <div class="order-id-line">Order <b id="orderIdText">#—</b></div>
-
-    <div class="order-price-card">
-      <div class="order-row">
-        <span>Your order amount</span>
-        <span id="rowOrderAmt">₹0</span>
-      </div>
-      <div class="order-row">
-        <span class="pos" id="rowCreditLabel">Instant wallet credit</span>
-        <span class="pos" id="rowCreditAmt">−₹0</span>
-      </div>
-      <div class="order-row final">
-        <span>You pay only</span>
-        <span class="order-final-num" id="rowFinalAmt">₹0</span>
-      </div>
+    <div class="node-box gray">
+      <div class="t">Order placed</div>
+      <div class="s">customer completes checkout</div>
     </div>
+    <div class="stem"></div>
 
-    <div class="order-earning-strip">
-      <span class="oe-icon">💸</span>
-      <span class="oe-text">Plus, earn <b id="oeMonthly">₹0/mo</b> as a <span id="oeAssetName">—</span> Asset Partner</span>
+    <div class="node-box gray">
+      <div class="t">Order confirmed</div>
+      <div class="s">follows order placement</div>
     </div>
+    <div class="stem"></div>
 
-    <a href="https://assets.sharepal.in" class="order-cta-btn" id="topCtaBtn">🎁 Claim Your Offer</a>
-  </div>
+    <div class="node-box amber">
+      <div class="t">Delivery &gt;2 days after confirmation?</div>
+      <div class="s">checked at the moment of confirmation</div>
+    </div>
+    <div class="stem"></div>
 
-  </div>
-  <!-- END HERO WRAPPER -->
+    <div class="branch-wrap">
+      <div class="branch-bar"></div>
+      <div class="branch-row">
 
-  <!-- TIER-MATCHED EXAMPLE -->
-  <div class="body-section">
-    <div class="example-card">
-      <div class="example-head">
-        <span class="example-tag">Matched For You</span>
-        <span class="example-asset" id="exAssetName">—</span>
-      </div>
-      <div class="example-cols">
-        <div class="example-col">
-          <div class="example-col-label">You Pay</div>
-          <div class="example-item">
-            <div class="example-item-name">Asset Cost</div>
-            <div class="example-item-val" id="exAssetCost">₹0</div>
-          </div>
-          <div class="example-item">
-            <div class="example-item-name">Tenure</div>
-            <div class="example-item-val" style="font-size:13px;">12 Months</div>
+        <div class="branch-col">
+          <div class="branch-stub"></div>
+          <div class="branch-label">Yes</div>
+          <a href="whatsapp-offer-message.html" target="_blank" class="node-link">
+            <div class="node-box teal">
+              <div class="t">Send WhatsApp message</div>
+              <div class="s">Asset Partner savings offer</div>
+              <span class="file-tag">WhatsApp Offer Message</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="branch-col">
+          <div class="branch-stub"></div>
+          <div class="branch-label">No</div>
+          <div class="node-box gray">
+            <div class="t">Skip</div>
+            <div class="s">not enough lead time to act</div>
+            <span class="file-tag">no message sent</span>
           </div>
         </div>
-        <div class="example-col">
-          <div class="example-col-label">Your Earnings</div>
-          <div class="example-item">
-            <div class="example-item-name">Monthly Payout</div>
-            <div class="example-item-val green" id="exMonthly">₹0<sub>/mo</sub></div>
-          </div>
-          <div class="example-item">
-            <div class="example-item-name">Wallet Credit</div>
-            <div class="example-item-val green" id="exWalletCredit">+₹0</div>
-            <div class="example-item-sub">3% instant on asset cost</div>
-          </div>
-        </div>
-        <div class="example-col">
-          <div class="example-col-label">After Tenure</div>
-          <div class="example-item">
-            <div class="example-item-name">Asset Cost Back</div>
-            <div class="example-item-val" id="exAssetCostBack">₹0</div>
-          </div>
-          <div class="example-item">
-            <div class="example-item-name">Total Earning</div>
-            <div class="example-item-val green" id="exTotalEarning">+₹0</div>
-          </div>
-        </div>
-      </div>
-      <div class="example-total-bar">
-        <span class="example-total-label">Total Payout (12 M)</span>
-        <span class="example-total-val" id="exTotalPayout">₹0</span>
+
       </div>
     </div>
+
   </div>
 
-  <!-- SAVINGS BANNER -->
-  <div class="body-section">
-    <div class="savings-banner">
-      <p>Asset Partners get <span>10% instant discount</span> + <span>10% cashback</span> on every rental, credited straight to your SharePal wallet.</p>
-    </div>
-  </div>
+  <div class="details-card">
+    <h3>Order value → asset & wallet credit logic</h3>
+    <p>The message and landing page personalize themselves using the customer's order amount. The order value picks an asset tier, and the tier's asset cost determines the 3% wallet credit shown.</p>
 
-  <!-- HOW IT WORKS -->
-  <div class="body-section">
-    <h3>How It Works</h3>
-    <p class="section-subtext">From paying for the asset to getting your money back — one simple cycle.</p>
-    <div class="step-cards-grid">
-      <div class="step-card">
-        <div class="step-card-icon blue">🛒</div>
-        <h4>Pay for Asset</h4>
-        <p>Choose from curated high-demand assets and pay us for purchasing it. The asset gets a unique serial number linked to you.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-card-icon blue">🔄</div>
-        <h4>We Manage It</h4>
-        <p>We manage, maintain, and rent the asset on our platform. You enjoy the benefits. Zero operational effort on your side.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-card-icon lime">💸</div>
-        <h4>Earn Monthly</h4>
-        <p>Monthly payouts hit your bank account on the same date every month — always, regardless of individual asset rental activity.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-card-icon lime">🏦</div>
-        <h4>Get Asset Cost Back</h4>
-        <p>At the end of your tenure, get the full asset cost paid back to your bank account.</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- BENEFITS -->
-  <div class="body-section">
-    <div class="benefits-block">
-      <div class="bb-group">
-        <div class="bb-label earn"><span class="bb-dot"></span>Earning Benefits<span class="bb-line"></span></div>
-        <div class="bb-tiles bb-earn-tiles">
-          <div class="bb-tile earn">
-            <div class="bb-tile-icon">👛</div>
-            <div class="bb-tile-prefix">upto</div>
-            <div class="bb-tile-value">₹20,000<span>/mo</span></div>
-            <div class="bb-tile-label">Earnings from rental assets</div>
-          </div>
-          <div class="bb-tile earn">
-            <div class="bb-tile-icon">🎁</div>
-            <div class="bb-tile-prefix">upto</div>
-            <div class="bb-tile-value">₹10,000</div>
-            <div class="bb-tile-label">Instant wallet credit</div>
-          </div>
-        </div>
-      </div>
-      <div class="bb-divider"></div>
-      <div class="bb-group">
-        <div class="bb-label rent">Rental Benefits<span class="bb-line"></span></div>
-        <div class="bb-tiles bb-rent-tiles">
-          <div class="bb-tile rent">
-            <div class="bb-tile-icon">🎟️</div>
-            <div class="bb-tile-value">10% Off</div>
-            <div class="bb-tile-label">Partner discount</div>
-          </div>
-          <div class="bb-tile rent">
-            <div class="bb-tile-icon">💰</div>
-            <div class="bb-tile-value">10%</div>
-            <div class="bb-tile-label">Cashback on every order</div>
-          </div>
-          <div class="bb-tile rent">
-            <div class="bb-tile-icon">🎧</div>
-            <div class="bb-tile-value">Priority</div>
-            <div class="bb-tile-label">Customer support</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- FAQ -->
-  <div class="body-section faq-link-block">
-    <a href="https://sharepal.in/faq" target="_blank" class="faq-link">Have questions? Read Asset Partner FAQs →</a>
-  </div>
-
-  <div class="disclaimer">
-    This is a business arrangement between you and Repium Ventures LLP. It is not a deposit, collective investment scheme, mutual fund, or financial securities product. Monthly payouts are derived from our business revenues. Please read the Terms &amp; Conditions to know more details.
+    <table class="tier-table">
+      <tr>
+        <th>Order value</th>
+        <th>Matched asset</th>
+        <th>Asset cost</th>
+        <th>Wallet credit (3%)</th>
+      </tr>
+      <tr>
+        <td>Below ₹5,000</td>
+        <td>DJI Pocket 4</td>
+        <td>₹52,500</td>
+        <td class="mono">₹1,575</td>
+      </tr>
+      <tr>
+        <td>₹5,000 – ₹10,000</td>
+        <td>PlayStation 5</td>
+        <td>₹64,500</td>
+        <td class="mono">₹1,935</td>
+      </tr>
+      <tr>
+        <td>Above ₹10,000</td>
+        <td>DJI Pocket 4P</td>
+        <td>₹84,500</td>
+        <td class="mono">₹2,535</td>
+      </tr>
+    </table>
   </div>
 
 </div>
-
-<div class="fab-stack" id="fabStack">
-  <div class="fab-options">
-    <a href="tel:+917619220543" class="fab-btn call" aria-label="Call us">📞</a>
-    <a href="https://wa.me/917619220543?text=Hi%20SharePal%20%F0%9F%91%8B%20I%27m%20interested%20in%20the%20Asset%20Partner%20Program%20and%20had%20a%20quick%20question%21" class="fab-btn whatsapp" aria-label="Chat on WhatsApp">💬</a>
-  </div>
-  <button class="fab-main" id="fabMain" aria-label="Connect with us">
-    Connect Us
-  </button>
-</div>
-
-<div class="sticky-cta">
-  <div class="sticky-cta-text">Pick any asset and <span>start earning</span> from day one.</div>
-  <a href="https://assets.sharepal.in" class="sticky-cta-btn" id="bottomCtaBtn">🎁 Claim Your Offer</a>
-</div>
-
-<script>
-  // ── TIER LOOKUP TABLE (real figures from current asset catalog) ──
-  const TIERS = [
-    { max: 5000,      name: "DJI Pocket 4",    cost: 52500, monthly: 613, total12m: 59850 },
-    { max: 10000,     name: "PlayStation 5",   cost: 64500, monthly: 753, total12m: 73530 },
-    { max: Infinity,  name: "DJI Pocket 4P",   cost: 84500, monthly: 986, total12m: 96330 },
-  ];
-
-  const inr = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
-
-  function getTier(orderAmount) {
-    return TIERS.find(t => orderAmount < t.max) || TIERS[TIERS.length - 1];
-  }
-
-  const params = new URLSearchParams(window.location.search);
-  const orderId = params.get('order') || 'BANGA1789738966206R';
-  const orderAmount = parseFloat(params.get('amount')) || 1870;
-
-  const tier = getTier(orderAmount);
-  const walletCredit = Math.round(tier.cost * 0.03);
-  const finalAmount = Math.max(orderAmount - walletCredit, 0);
-  const leftoverCredit = Math.max(walletCredit - orderAmount, 0);
-
-  document.getElementById('orderIdText').textContent = '#' + orderId;
-  document.getElementById('rowOrderAmt').textContent = inr(orderAmount);
-  document.getElementById('rowCreditLabel').textContent = 'Instant wallet credit (' + tier.name + ')';
-  document.getElementById('rowCreditAmt').textContent = '−' + inr(Math.min(walletCredit, orderAmount));
-  document.getElementById('rowFinalAmt').textContent = inr(finalAmount);
-
-  document.getElementById('oeMonthly').textContent = inr(tier.monthly) + '/mo';
-  document.getElementById('oeAssetName').textContent = tier.name;
-
-  document.getElementById('exAssetName').textContent = tier.name;
-  document.getElementById('exAssetCost').textContent = inr(tier.cost);
-  document.getElementById('exMonthly').innerHTML = inr(tier.monthly) + '<sub>/mo</sub>';
-  document.getElementById('exWalletCredit').textContent = '+' + inr(walletCredit);
-  document.getElementById('exAssetCostBack').textContent = inr(tier.cost);
-  document.getElementById('exTotalEarning').textContent = '+' + inr(tier.total12m - tier.cost);
-  document.getElementById('exTotalPayout').textContent = inr(tier.total12m);
-
-  if (leftoverCredit > 0) {
-    document.getElementById('rowCreditLabel').textContent = 'Wallet credit used (₹' + Math.round(leftoverCredit).toLocaleString('en-IN') + ' left over)';
-  }
-
-  const fabMain = document.getElementById('fabMain');
-  const fabStack = document.getElementById('fabStack');
-  fabMain.addEventListener('click', () => fabStack.classList.toggle('open'));
-</script>
 
 </body>
 </html>
