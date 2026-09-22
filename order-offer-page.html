@@ -110,6 +110,11 @@
     text-decoration: none; text-align: center;
   }
 
+  .order-cashback-note {
+    max-width: 420px; margin: 10px auto 0;
+    font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5;
+  }
+
   .order-earning-strip {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     max-width: 420px; margin: 14px auto 0;
@@ -349,7 +354,7 @@
         <span id="rowOrderAmt">₹0</span>
       </div>
       <div class="order-row">
-        <span class="pos" id="rowCreditLabel">Instant wallet credit</span>
+        <span class="pos" id="rowCreditLabel">Instant cashback</span>
         <span class="pos" id="rowCreditAmt">−₹0</span>
       </div>
       <div class="order-row final">
@@ -357,6 +362,8 @@
         <span class="order-final-num" id="rowFinalAmt">₹0</span>
       </div>
     </div>
+
+    <div class="order-cashback-note">Cashback is credited to your SharePal wallet — transfer it to your bank anytime, or use it on rentals.</div>
 
     <div class="order-earning-strip">
       <span class="oe-icon">💸</span>
@@ -395,7 +402,7 @@
             <div class="example-item-val green" id="exMonthly">₹0<sub>/mo</sub></div>
           </div>
           <div class="example-item">
-            <div class="example-item-name">Wallet Credit</div>
+            <div class="example-item-name">Cashback</div>
             <div class="example-item-val green" id="exWalletCredit">+₹0</div>
             <div class="example-item-sub">3% instant on asset cost</div>
           </div>
@@ -470,7 +477,7 @@
             <div class="bb-tile-icon">🎁</div>
             <div class="bb-tile-prefix">upto</div>
             <div class="bb-tile-value">₹10,000</div>
-            <div class="bb-tile-label">Instant wallet credit</div>
+            <div class="bb-tile-label">Instant cashback, bank-transferable</div>
           </div>
         </div>
       </div>
@@ -549,7 +556,7 @@
 
   document.getElementById('orderIdText').textContent = '#' + orderId;
   document.getElementById('rowOrderAmt').textContent = inr(orderAmount);
-  document.getElementById('rowCreditLabel').textContent = 'Instant wallet credit (' + tier.name + ')';
+  document.getElementById('rowCreditLabel').textContent = 'Instant cashback (' + tier.name + ')';
   document.getElementById('rowCreditAmt').textContent = '−' + inr(Math.min(walletCredit, orderAmount));
   document.getElementById('rowFinalAmt').textContent = inr(finalAmount);
 
@@ -565,7 +572,7 @@
   document.getElementById('exTotalPayout').textContent = inr(tier.total12m);
 
   if (leftoverCredit > 0) {
-    document.getElementById('rowCreditLabel').textContent = 'Wallet credit used (₹' + Math.round(leftoverCredit).toLocaleString('en-IN') + ' left over)';
+    document.getElementById('rowCreditLabel').textContent = 'Cashback used (₹' + Math.round(leftoverCredit).toLocaleString('en-IN') + ' left over)';
   }
 
   const fabMain = document.getElementById('fabMain');
