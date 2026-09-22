@@ -84,6 +84,24 @@
   .details-card h3 { font-size: 16px; margin-bottom: 8px; }
   .details-card > p { font-size: 13px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
 
+  .filter-row { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+  .filter-btn {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; font-weight: 700;
+    background: rgba(255,255,255,0.06); color: var(--muted);
+    border: 1px solid var(--border); border-radius: 100px;
+    padding: 7px 16px; cursor: pointer; transition: background 0.15s, color 0.15s;
+  }
+  .filter-btn:hover { background: rgba(255,255,255,0.1); }
+  .filter-btn.active { background: var(--blue); color: #fff; border-color: #3f7fd6; }
+
+  .bucket-tag {
+    display: inline-block; font-size: 11px; font-weight: 700;
+    padding: 3px 10px; border-radius: 100px;
+  }
+  .bucket-tag.b0  { background: rgba(14,107,79,0.25); color: #6fe3bd; }
+  .bucket-tag.b5  { background: rgba(184,115,51,0.2); color: #f2b877; }
+  .bucket-tag.b10 { background: rgba(200,60,60,0.2); color: #f28a8a; }
+
   .tier-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .tier-table th {
     text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px;
@@ -141,7 +159,7 @@
     <div class="stem"></div>
 
     <div class="node-box amber">
-      <div class="t">Delivery &gt;2 days after confirmation?</div>
+      <div class="t">Delivery &gt;1 day after confirmation?</div>
       <div class="s">checked at the moment of confirmation</div>
     </div>
     <div class="stem"></div>
@@ -178,35 +196,121 @@
   </div>
 
   <div class="details-card">
-    <h3>Order value → asset & wallet credit logic</h3>
-    <p>The message and landing page personalize themselves using the customer's order amount. The order value picks an asset tier, and the tier's asset cost determines the 3% wallet credit shown.</p>
+    <h3>Order value → asset & cashback logic</h3>
+    <p>The message and landing page personalize themselves using the customer's order amount. The order value picks an asset tier, and the tier's asset cost determines the 3% cashback shown — credited to their SharePal wallet with a transfer-to-bank option, since they've already completed their order and shouldn't need to place another rental to benefit.</p>
 
-    <table class="tier-table">
+    <div class="filter-row">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="0-5">0–5%</button>
+      <button class="filter-btn" data-filter="5-10">5–10%</button>
+      <button class="filter-btn" data-filter="10-15">10–15%</button>
+    </div>
+
+    <table class="tier-table" id="tierTable">
       <tr>
-        <th>Order value</th>
-        <th>Matched asset</th>
-        <th>Asset cost</th>
-        <th>Wallet credit (3%)</th>
+        <th>Order band</th>
+        <th>Asset combination</th>
+        <th>Total cashback</th>
+        <th>Worst-case pay</th>
+        <th>Bucket</th>
       </tr>
-      <tr>
-        <td>Below ₹5,000</td>
-        <td>DJI Pocket 4</td>
-        <td>₹52,500</td>
-        <td class="mono">₹1,575</td>
-      </tr>
-      <tr>
-        <td>₹5,000 – ₹10,000</td>
-        <td>PlayStation 5</td>
-        <td>₹64,500</td>
+      <tr data-bucket="0-5">
+        <td>₹0 – ₹2,000</td>
+        <td>1× PlayStation 5</td>
         <td class="mono">₹1,935</td>
+        <td class="mono">3.3%</td>
+        <td><span class="bucket-tag b0">0–5%</span></td>
       </tr>
-      <tr>
-        <td>Above ₹10,000</td>
-        <td>DJI Pocket 4P</td>
-        <td>₹84,500</td>
-        <td class="mono">₹2,535</td>
+      <tr data-bucket="5-10">
+        <td>₹2,000 – ₹4,000</td>
+        <td>1× Luna Ultra + 1× Pocket 4</td>
+        <td class="mono">₹3,750</td>
+        <td class="mono">6.3%</td>
+        <td><span class="bucket-tag b5">5–10%</span></td>
+      </tr>
+      <tr data-bucket="5-10">
+        <td>₹4,000 – ₹6,000</td>
+        <td>1× PS5 + 1× Luna Ultra + 1× Pocket 4</td>
+        <td class="mono">₹5,685</td>
+        <td class="mono">5.3%</td>
+        <td><span class="bucket-tag b5">5–10%</span></td>
+      </tr>
+      <tr data-bucket="10-15">
+        <td>₹6,000 – ₹8,000</td>
+        <td>2× Pocket 4P + 1× PS5</td>
+        <td class="mono">₹7,005</td>
+        <td class="mono">12.4%</td>
+        <td><span class="bucket-tag b10">10–15%</span></td>
+      </tr>
+      <tr data-bucket="5-10">
+        <td>₹8,000 – ₹10,000</td>
+        <td>2× Pocket 4P + 1× Luna Ultra + 1× PS5</td>
+        <td class="mono">₹9,180</td>
+        <td class="mono">8.2%</td>
+        <td><span class="bucket-tag b5">5–10%</span></td>
+      </tr>
+      <tr data-bucket="5-10">
+        <td>₹10,000 – ₹12,000</td>
+        <td>3× Pocket 4P + 1× Luna Ultra + 1× Pocket 4</td>
+        <td class="mono">₹11,355</td>
+        <td class="mono">5.4%</td>
+        <td><span class="bucket-tag b5">5–10%</span></td>
+      </tr>
+      <tr data-bucket="10-15">
+        <td>₹12,000 – ₹14,000</td>
+        <td>4× Pocket 4P + 1× PS5</td>
+        <td class="mono">₹12,075</td>
+        <td class="mono">13.8%</td>
+        <td><span class="bucket-tag b10">10–15%</span></td>
+      </tr>
+      <tr data-bucket="0-5">
+        <td>₹14,000 – ₹16,000</td>
+        <td>4× Pocket 4P + 1× Luna Ultra + 1× PS5 + 1× Pocket 4</td>
+        <td class="mono">₹15,825</td>
+        <td class="mono">1.1%</td>
+        <td><span class="bucket-tag b0">0–5%</span></td>
+      </tr>
+      <tr data-bucket="5-10">
+        <td>₹16,000 – ₹18,000</td>
+        <td>5× Pocket 4P + 1× Luna Ultra + 1× Osmo Combo</td>
+        <td class="mono">₹16,485</td>
+        <td class="mono">8.4%</td>
+        <td><span class="bucket-tag b5">5–10%</span></td>
+      </tr>
+      <tr data-bucket="10-15">
+        <td>₹18,000 – ₹20,000</td>
+        <td>6× Pocket 4P + 1× PS5</td>
+        <td class="mono">₹17,145</td>
+        <td class="mono">14.3%</td>
+        <td><span class="bucket-tag b10">10–15%</span></td>
       </tr>
     </table>
+    <div class="calc-note">
+      Rule: cashback is 3% of the <strong style="color:#cfe0f7;">total</strong> combined asset cost across whatever's chosen — mixing different assets (or repeating one) both work, whichever total gets closest to the band's need. Only the upper end of each band matters; worst-case pay above reflects the band's top order value. Filter by bucket above to see which bands still run generous (0–5%) versus tighter (10–15%).
+    </div>
+  </div>
+
+  <script>
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const filter = btn.dataset.filter;
+        document.querySelectorAll('#tierTable tr[data-bucket]').forEach(row => {
+          row.style.display = (filter === 'all' || row.dataset.bucket === filter) ? '' : 'none';
+        });
+      });
+    });
+  </script>
+
+  <div class="details-card">
+    <h3>Recommended audience</h3>
+    <p>Since becoming an Asset Partner involves paying a meaningful upfront sum (₹52,500–₹84,500+) for a return over months, this campaign should target people who can reasonably judge that commitment against their own finances.</p>
+    <div class="calc-note" style="margin-top:0;">
+      <strong style="color:#bdeeda;">Target:</strong> salaried employees, working professionals, self-employed individuals with steady income.<br><br>
+      <strong style="color:#ffe3c2;">Avoid:</strong> students, individuals with no independent income, retirees on fixed or limited income, Chartered Accountants, and Advocates.<br><br>
+      This isn't a legal restriction on the product itself — it's a responsible-marketing default, since unsolicited "invest and earn monthly" outreach to people without independent income invites regulatory and reputational scrutiny even when the underlying offer is legitimate.
+    </div>
   </div>
 
 </div>
