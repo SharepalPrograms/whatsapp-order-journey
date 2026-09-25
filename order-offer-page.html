@@ -27,7 +27,7 @@
 
   html, body {
     font-family: 'Hanken Grotesk', sans-serif;
-    background: #F4F6FF;
+    background: #E4E9FA;
     color: var(--ink);
     -webkit-font-smoothing: antialiased;
   }
@@ -35,9 +35,13 @@
   h1, h2, h3, h4 { font-family: 'Bricolage Grotesque', sans-serif; }
 
   .page {
-    max-width: 640px;
+    width: 100%;
+  }
+
+  .inner {
+    max-width: 760px;
     margin: 0 auto;
-    padding: 0 0 100px;
+    width: 100%;
   }
 
   /* ── HEADER ── */
@@ -153,7 +157,7 @@
   }
 
   /* ── BODY CONTAINER ── */
-  .body-section { padding: 26px 24px; }
+  .body-section { padding: 26px 24px; background: #F4F6FF; }
   .body-section + .body-section { border-top: 1px solid var(--border); }
   .body-section h3 {
     font-size: 15px; font-weight: 800; text-transform: uppercase;
@@ -200,7 +204,15 @@
 
   /* ── STEP CARDS ── */
   .step-cards-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
-  .step-card { background: #F4F6FF; border-radius: 14px; padding: 16px; text-align: center; }
+  .step-card { background: #F4F6FF; border-radius: 14px; padding: 20px 16px; text-align: center; }
+  .step-num {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--navy); color: var(--lime);
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 12px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px;
+  }
+  .step-arrow { display: none; }
   .step-card-icon {
     width: 38px; height: 38px; border-radius: 10px;
     background: #fff; border: 2px solid var(--border);
@@ -250,15 +262,14 @@
   .faq-link { font-size: 13px; color: var(--blue); font-weight: 600; text-decoration: none; }
 
   /* ── DISCLAIMER ── */
-  .disclaimer { font-size: 10px; color: var(--muted); line-height: 1.6; text-align: center; padding: 0 24px; }
+  .disclaimer { font-size: 10px; color: var(--muted); line-height: 1.6; text-align: center; padding: 16px 24px; max-width: 760px; margin: 0 auto; }
 
   /* ── STICKY CTA ── */
   .sticky-cta {
-    position: fixed; bottom: 0; left: 0; right: 0;
+    position: static;
     background: #fff; border-top: 1px solid var(--border);
-    padding: 14px 20px; max-width: 640px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between; gap: 14px;
-    box-shadow: 0 -8px 24px rgba(3,13,49,0.08);
+    padding: 20px 24px;
+    display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;
   }
   .sticky-cta-text { font-size: 12px; color: var(--ink); font-weight: 600; }
   .sticky-cta-text span { color: var(--blue); }
@@ -304,6 +315,43 @@
   }
   .fab-stack.open .fab-main { transform: scale(1.05); }
 
+  @media (min-width: 768px) {
+    .inner { padding: 0 24px; }
+    .page-header { padding: 24px 48px; }
+    .intro-section h2 { font-size: 26px; }
+    .intro-section p { font-size: 15px; }
+    .order-price-card { max-width: 480px; }
+    .example-item-val { font-size: 19px; }
+    .body-section { padding: 40px 24px; }
+
+    .step-cards-grid {
+      display: flex; align-items: stretch; gap: 4px;
+    }
+    .step-card { flex: 1; }
+    .step-arrow {
+      display: flex; align-items: center; justify-content: center;
+      width: 20px; flex-shrink: 0; padding-top: 16px;
+      color: var(--border); font-size: 16px;
+    }
+
+    .sticky-cta-text { font-size: 14px; }
+    .sticky-cta-btn { padding: 14px 30px; font-size: 14px; }
+
+    .fab-stack { right: 32px; bottom: 32px; }
+  }
+
+  /* mobile: sticky bar pins to the bottom of the viewport, thumb-reachable */
+  @media (max-width: 767px) {
+    .page { padding-bottom: 100px; }
+    .sticky-cta {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      max-width: 640px; margin: 0 auto;
+      box-shadow: 0 -8px 24px rgba(3,13,49,0.08);
+      justify-content: space-between;
+      padding: 14px 20px;
+    }
+  }
+
   @media (max-width: 480px) {
     .step-cards-grid { grid-template-columns: 1fr; }
     .example-cols { grid-template-columns: 1fr; }
@@ -332,9 +380,11 @@
 
   <!-- INTRO -->
   <div class="intro-section">
+    <div class="inner">
     <div class="intro-eyebrow">Introducing</div>
     <h2>SharePal <span class="lime">Asset Partner</span> Program</h2>
     <p>As an Asset Partner, you buy the assets that power SharePal's rental platform. In return, you earn secured monthly payouts straight to your bank, plus exclusive perks that make your own rentals cheaper too.</p>
+    </div>
   </div>
 
   <!-- PERSONALIZED ORDER RECAP -->
@@ -348,6 +398,7 @@
     <div class="order-eyebrow">🎁 Offer Based On Your Order</div>
     <div class="order-id-line">Order <b id="orderIdText">#—</b></div>
 
+    <div class="inner">
     <div class="order-price-card">
       <div class="order-row">
         <span>Your order amount</span>
@@ -363,7 +414,7 @@
       </div>
     </div>
 
-    <div class="order-cashback-note">Cashback is credited to your SharePal wallet — transfer it to your bank anytime, or use it on rentals.</div>
+    <div class="order-cashback-note">Cashback is credited to your SharePal wallet — transfer up to your order value to your bank anytime. Any balance beyond that stays redeemable on your future orders.</div>
 
     <div class="order-earning-strip">
       <span class="oe-icon">💸</span>
@@ -371,6 +422,7 @@
     </div>
 
     <a href="https://assets.sharepal.in" class="order-cta-btn" id="topCtaBtn">🎁 Claim Your Offer</a>
+    </div>
   </div>
 
   </div>
@@ -378,6 +430,7 @@
 
   <!-- TIER-MATCHED EXAMPLE -->
   <div class="body-section">
+    <div class="inner">
     <div class="example-card">
       <div class="example-head">
         <span class="example-tag">Matched For You</span>
@@ -424,45 +477,58 @@
         <span class="example-total-val" id="exTotalPayout">₹0</span>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- SAVINGS BANNER -->
   <div class="body-section">
+    <div class="inner">
     <div class="savings-banner">
       <p>Asset Partners get <span>10% instant discount</span> + <span>10% cashback</span> on every rental, credited straight to your SharePal wallet.</p>
+    </div>
     </div>
   </div>
 
   <!-- HOW IT WORKS -->
   <div class="body-section">
+    <div class="inner">
     <h3>How It Works</h3>
     <p class="section-subtext">From paying for the asset to getting your money back — one simple cycle.</p>
     <div class="step-cards-grid">
       <div class="step-card">
+        <div class="step-num">1</div>
         <div class="step-card-icon blue">🛒</div>
         <h4>Pay for Asset</h4>
         <p>Choose from curated high-demand assets and pay us for purchasing it. The asset gets a unique serial number linked to you.</p>
       </div>
+      <div class="step-arrow">→</div>
       <div class="step-card">
+        <div class="step-num">2</div>
         <div class="step-card-icon blue">🔄</div>
         <h4>We Manage It</h4>
         <p>We manage, maintain, and rent the asset on our platform. You enjoy the benefits. Zero operational effort on your side.</p>
       </div>
+      <div class="step-arrow">→</div>
       <div class="step-card">
+        <div class="step-num">3</div>
         <div class="step-card-icon lime">💸</div>
         <h4>Earn Monthly</h4>
         <p>Monthly payouts hit your bank account on the same date every month — always, regardless of individual asset rental activity.</p>
       </div>
+      <div class="step-arrow">→</div>
       <div class="step-card">
+        <div class="step-num">4</div>
         <div class="step-card-icon lime">🏦</div>
         <h4>Get Asset Cost Back</h4>
         <p>At the end of your tenure, get the full asset cost paid back to your bank account.</p>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- BENEFITS -->
   <div class="body-section">
+    <div class="inner">
     <div class="benefits-block">
       <div class="bb-group">
         <div class="bb-label earn"><span class="bb-dot"></span>Earning Benefits<span class="bb-line"></span></div>
@@ -503,11 +569,19 @@
         </div>
       </div>
     </div>
+    </div>
   </div>
 
   <!-- FAQ -->
   <div class="body-section faq-link-block">
+    <div class="inner">
     <a href="https://sharepal.in/faq" target="_blank" class="faq-link">Have questions? Read Asset Partner FAQs →</a>
+    </div>
+  </div>
+
+  <div class="sticky-cta">
+    <div class="sticky-cta-text">Pick any asset and <span>start earning</span> from day one.</div>
+    <a href="https://assets.sharepal.in" class="sticky-cta-btn" id="bottomCtaBtn">🎁 Claim Your Offer</a>
   </div>
 
   <div class="disclaimer">
@@ -524,11 +598,6 @@
   <button class="fab-main" id="fabMain" aria-label="Connect with us">
     Connect Us
   </button>
-</div>
-
-<div class="sticky-cta">
-  <div class="sticky-cta-text">Pick any asset and <span>start earning</span> from day one.</div>
-  <a href="https://assets.sharepal.in" class="sticky-cta-btn" id="bottomCtaBtn">🎁 Claim Your Offer</a>
 </div>
 
 <script>
