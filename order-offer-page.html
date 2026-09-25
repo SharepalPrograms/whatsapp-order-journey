@@ -321,6 +321,12 @@
     .intro-section h2 { font-size: 26px; }
     .intro-section p { font-size: 15px; }
     .order-price-card { max-width: 480px; }
+    .order-cashback-note { max-width: 480px; font-size: 12px; }
+    .order-earning-strip { max-width: 480px; }
+    .oe-text { font-size: 13px; }
+    .order-eyebrow { font-size: 12px; padding: 6px 14px; }
+    .order-id-line { font-size: 13px; }
+    .order-final-num { font-size: 34px; }
     .example-item-val { font-size: 19px; }
     .body-section { padding: 40px 24px; }
 
@@ -338,6 +344,31 @@
     .sticky-cta-btn { padding: 14px 30px; font-size: 14px; }
 
     .fab-stack { right: 32px; bottom: 32px; }
+  }
+
+  /* larger desktop screens: content column widens so side margins don't stay huge */
+  @media (min-width: 1200px) {
+    .inner { max-width: 980px; padding: 0 32px; }
+    .intro-section h2 { font-size: 30px; }
+    .intro-section p { font-size: 16px; }
+    .body-section { padding: 48px 32px; }
+    .step-card p { font-size: 12.5px; }
+
+    .order-price-card { max-width: 560px; padding: 22px 26px; }
+    .order-cashback-note { max-width: 540px; }
+    .order-earning-strip { max-width: 560px; }
+    .order-row { font-size: 14px; }
+    .order-final-num { font-size: 40px; }
+    .order-cta-btn { font-size: 15px; padding: 16px 36px; }
+  }
+
+  @media (min-width: 1600px) {
+    .inner { max-width: 1180px; }
+    .page-header { padding: 28px 64px; }
+
+    .order-price-card { max-width: 640px; }
+    .order-cashback-note { max-width: 600px; }
+    .order-earning-strip { max-width: 640px; }
   }
 
   /* mobile: sticky bar pins to the bottom of the viewport, thumb-reachable */
