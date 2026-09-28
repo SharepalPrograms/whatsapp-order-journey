@@ -114,10 +114,33 @@
     text-decoration: none; text-align: center;
   }
 
-  .order-cashback-note {
-    max-width: 420px; margin: 10px auto 0;
-    font-size: 11px; color: rgba(255,255,255,0.55); line-height: 1.5;
+  .order-remaining {
+    max-width: 420px; margin: 12px auto 0; text-align: left;
+    background: rgba(159,254,2,0.06); border: 1px dashed rgba(159,254,2,0.35);
+    border-radius: 12px; padding: 12px 16px;
   }
+  .ob-title {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); margin-bottom: 6px;
+  }
+  .ob-row {
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
+    padding: 6px 0; font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.75);
+  }
+  .ob-row > span:last-child {
+    font-family: 'Bricolage Grotesque', sans-serif; font-weight: 800;
+    color: rgba(255,255,255,0.92); white-space: nowrap;
+  }
+  .ob-row.main { font-size: 15px; font-weight: 800; color: var(--lime); }
+  .ob-row.main > span:last-child { font-size: 18px; color: var(--lime); }
+  .ob-sub { display: block; font-size: 10.5px; font-weight: 500; color: rgba(255,255,255,0.55); margin-top: 1px; }
+  .ob-total {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-top: 6px; padding-top: 9px; border-top: 1px solid rgba(255,255,255,0.14);
+    font-size: 12px; font-weight: 700; color: #fff;
+  }
+  .ob-total > span:last-child { font-family: 'Bricolage Grotesque', sans-serif; font-size: 16px; font-weight: 800; }
+
 
   .order-earning-strip {
     display: flex; align-items: center; justify-content: center; gap: 8px;
@@ -129,6 +152,12 @@
   .oe-text { font-size: 12px; color: rgba(255,255,255,0.85); line-height: 1.4; }
   .oe-text b { color: var(--lime); font-weight: 800; }
   .oe-text span { color: rgba(255,255,255,0.85); }
+
+  .order-illustrative {
+    margin: 22px 0 0; text-align: right;
+    font-size: 10.5px; font-style: italic; line-height: 1.5;
+    color: rgba(255,255,255,0.5);
+  }
 
   /* ── HERO WRAPPER (shared continuous gradient) ── */
   .hero-wrapper {
@@ -224,7 +253,90 @@
   .step-card h4 { font-size: 13px; font-weight: 800; color: var(--ink); margin-bottom: 6px; }
   .step-card p { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
 
-  /* ── EXAMPLE CARD (tier-matched asset) ── */
+  /* ── EARNINGS CALCULATOR ── */
+  .calc-card {
+    max-width: 620px; margin: 0 auto; background: #fff;
+    border: 1px solid var(--border); border-radius: 16px; overflow: hidden;
+    box-shadow: 0 6px 24px rgba(3,13,49,0.06);
+  }
+  .calc-top { padding: 18px 20px 16px; }
+  .calc-top-row { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .calc-label { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .calc-amount {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 28px; font-weight: 800;
+    color: var(--ink); line-height: 1; white-space: nowrap;
+  }
+  .calc-slider {
+    -webkit-appearance: none; appearance: none;
+    display: block; width: 100%; height: 8px; margin: 18px 0 0; border-radius: 100px; outline: none;
+    background: linear-gradient(to right, var(--blue) var(--pct, 11%), #E2E8F0 var(--pct, 11%));
+    cursor: pointer;
+  }
+  .calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none; appearance: none;
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--navy); border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(3,13,49,0.35); cursor: pointer;
+  }
+  .calc-slider::-moz-range-thumb {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: var(--navy); border: 4px solid #fff;
+    box-shadow: 0 2px 8px rgba(3,13,49,0.35); cursor: pointer;
+  }
+  .calc-slider::-moz-range-track { background: transparent; height: 8px; }
+  .calc-slider:focus-visible { outline: 2px solid var(--blue); outline-offset: 6px; }
+  .calc-range-labels {
+    display: flex; justify-content: space-between; margin-top: 12px;
+    font-size: 11px; color: var(--muted);
+  }
+
+  .calc-tenure { padding: 14px 20px 16px; background: #F4F6FF; border-top: 1px solid var(--border); }
+  .calc-tenure-title { font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 10px; }
+  .calc-tenure-btns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .calc-tbtn {
+    font-family: 'Bricolage Grotesque', sans-serif; text-align: center; cursor: pointer;
+    background: #fff; color: var(--ink); border: 1.5px solid var(--border);
+    border-radius: 12px; padding: 13px 6px; transition: background 0.15s, border-color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .calc-tbtn:hover { border-color: var(--blue); }
+  .calc-tbtn:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+  .calc-tbtn .t { display: block; font-size: 13px; font-weight: 800; }
+  .calc-tbtn.active { background: var(--navy); border-color: var(--navy); }
+  .calc-tbtn.active .t { color: var(--lime); }
+
+  .calc-row {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 14px 20px; background: #F4F6FF; border-top: 1px solid var(--border);
+  }
+  .calc-row-title { font-size: 14px; font-weight: 700; color: var(--ink); }
+  .calc-row-sub { margin-top: 2px; font-size: 12px; color: var(--muted); }
+  .calc-row-val {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 18px; font-weight: 800;
+    color: var(--ink); white-space: nowrap;
+  }
+  .calc-row-val small { font-size: 12px; font-weight: 600; color: var(--muted); }
+  .calc-row-val.bonus { color: var(--blue); }
+  .calc-chip {
+    display: inline-block; margin-left: 6px; padding: 2px 8px; border-radius: 100px; vertical-align: 1px;
+    background: var(--lime); color: var(--ink);
+    font-size: 9px; font-weight: 800; letter-spacing: 0.8px;
+  }
+
+  .calc-total {
+    display: flex; justify-content: space-between; align-items: center; gap: 12px;
+    padding: 16px 20px; background: var(--navy);
+  }
+  .calc-total-label { font-size: 14px; font-weight: 700; color: #fff; }
+  .calc-total-sub { margin-top: 2px; font-size: 12px; color: rgba(255,255,255,0.6); }
+  .calc-total-val {
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 26px; font-weight: 800;
+    color: var(--lime); white-space: nowrap;
+  }
+  .calc-total-val small { font-size: 13px; font-weight: 600; color: rgba(159,254,2,0.7); }
+  .calc-foot { max-width: 620px; margin: 10px auto 0; text-align: center; font-size: 10.5px; color: var(--muted); }
+
+  /* ── EARNINGS SUMMARY CARD (follows the calculator) ── */
   .example-card { background: #F4F6FF; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; }
   .example-head {
     display: flex; align-items: center; justify-content: space-between;
@@ -280,6 +392,67 @@
     white-space: nowrap; text-decoration: none;
   }
 
+  /* ── TALK TO US + CALLBACK POPUP ── */
+  .order-talk-btn {
+    display: block; margin: 12px auto 0; min-width: 190px;
+    background: transparent; color: #fff; cursor: pointer;
+    border: 1.5px solid rgba(255,255,255,0.4); border-radius: 100px;
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 14px; font-weight: 700;
+    padding: 12px 32px; transition: border-color 0.15s, color 0.15s;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .order-talk-btn:hover { border-color: var(--lime); color: var(--lime); }
+  .order-talk-btn:focus-visible { outline: 2px solid var(--lime); outline-offset: 3px; }
+
+  .cb-overlay {
+    position: fixed; inset: 0; z-index: 1000; padding: 20px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(3,13,49,0.62);
+  }
+  .cb-overlay[hidden] { display: none; }
+  .cb-modal {
+    position: relative; width: 100%; max-width: 400px;
+    background: #fff; border-radius: 20px; padding: 28px 24px 22px;
+    box-shadow: 0 24px 60px rgba(3,13,49,0.35);
+    animation: cbIn 0.2s ease-out;
+  }
+  @keyframes cbIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: none; } }
+  @keyframes cbUp { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .cb-modal { animation: none; } }
+
+  .cb-close {
+    position: absolute; top: 12px; right: 12px; width: 32px; height: 32px;
+    border: none; border-radius: 50%; background: #F4F6FF; color: var(--ink);
+    font-size: 20px; line-height: 1; cursor: pointer;
+  }
+  .cb-close:hover { background: var(--mist); }
+  .cb-title { font-size: 20px; font-weight: 800; color: var(--ink); margin-bottom: 6px; padding-right: 34px; }
+  .cb-sub { font-size: 13.5px; color: var(--muted); line-height: 1.55; margin-bottom: 18px; }
+  .cb-order {
+    display: inline-block; padding: 8px 12px; border-radius: 10px;
+    background: #F4F6FF; border: 1px solid var(--border);
+    font-size: 12.5px; color: var(--muted);
+  }
+  .cb-order b { color: var(--ink); }
+  .cb-error { min-height: 18px; margin: 10px 0 6px; font-size: 12px; font-weight: 600; color: #D64545; }
+  .cb-submit {
+    display: block; width: 100%; margin-top: 6px; cursor: pointer; border: none;
+    background: var(--lime); color: var(--ink); border-radius: 100px;
+    font-family: 'Bricolage Grotesque', sans-serif; font-size: 15px; font-weight: 800; padding: 14px;
+  }
+  .cb-submit:hover { background: #B2FF33; }
+  .cb-submit:disabled { opacity: 0.6; cursor: default; }
+  .cb-consent { margin-top: 12px; font-size: 10.5px; color: var(--muted); line-height: 1.5; text-align: center; }
+  .cb-check {
+    width: 56px; height: 56px; border-radius: 50%; margin: 4px 0 14px;
+    background: var(--lime); display: flex; align-items: center; justify-content: center;
+  }
+  #cbDoneView .cb-sub { margin-bottom: 20px; }
+  @media (max-width: 480px) {
+    .cb-overlay { align-items: flex-end; padding: 0; }
+    .cb-modal { max-width: none; border-radius: 20px 20px 0 0; padding-bottom: 30px; animation: cbUp 0.25s ease-out; }
+  }
+
   /* ── FLOATING FAB: ONE BUTTON, EXPANDS TO TWO OPTIONS ── */
   .fab-stack {
     position: fixed; right: 18px; bottom: 92px;
@@ -321,8 +494,17 @@
     .intro-section h2 { font-size: 26px; }
     .intro-section p { font-size: 15px; }
     .order-price-card { max-width: 480px; }
-    .order-cashback-note { max-width: 480px; font-size: 12px; }
+    .calc-amount { font-size: 34px; }
+    .calc-label, .calc-tenure-title { font-size: 14px; }
+    .calc-row-val { font-size: 20px; }
+    .calc-total-val { font-size: 30px; }
+    .order-remaining { max-width: 480px; }
+    .ob-row { font-size: 13px; }
+    .ob-row.main { font-size: 16px; }
+    .ob-row.main > span:last-child { font-size: 20px; }
+    .ob-total { font-size: 13px; }
     .order-earning-strip { max-width: 480px; }
+    .order-illustrative { font-size: 11px; }
     .oe-text { font-size: 13px; }
     .order-eyebrow { font-size: 12px; padding: 6px 14px; }
     .order-id-line { font-size: 13px; }
@@ -355,11 +537,13 @@
     .step-card p { font-size: 12.5px; }
 
     .order-price-card { max-width: 560px; padding: 22px 26px; }
-    .order-cashback-note { max-width: 540px; }
+    .calc-card, .calc-foot { max-width: 680px; }
+    .order-remaining { max-width: 560px; }
     .order-earning-strip { max-width: 560px; }
     .order-row { font-size: 14px; }
     .order-final-num { font-size: 40px; }
     .order-cta-btn { font-size: 15px; padding: 16px 36px; }
+    .order-talk-btn { font-size: 15px; padding: 14px 36px; min-width: 212px; }
   }
 
   @media (min-width: 1600px) {
@@ -367,7 +551,7 @@
     .page-header { padding: 28px 64px; }
 
     .order-price-card { max-width: 640px; }
-    .order-cashback-note { max-width: 600px; }
+    .order-remaining { max-width: 640px; }
     .order-earning-strip { max-width: 640px; }
   }
 
@@ -381,6 +565,12 @@
       justify-content: space-between;
       padding: 14px 20px;
     }
+  }
+
+  /* very narrow phones: keep "12 months" on one line inside its button */
+  @media (max-width: 360px) {
+    .calc-tbtn { padding: 13px 2px; }
+    .calc-tbtn .t { font-size: 12px; white-space: nowrap; }
   }
 
   @media (max-width: 480px) {
@@ -445,67 +635,117 @@
       </div>
     </div>
 
-    <div class="order-cashback-note">Cashback is credited to your SharePal wallet — transfer up to your order value to your bank anytime. Any balance beyond that stays redeemable on your future orders.</div>
+    <div class="order-remaining" id="rowRemaining"></div>
+
 
     <div class="order-earning-strip">
       <span class="oe-icon">💸</span>
-      <span class="oe-text">Plus, earn <b id="oeMonthly">₹0/mo</b> as a <span id="oeAssetName">—</span> Asset Partner</span>
+      <span class="oe-text">Plus, earn <b>₹1,083/mo</b> as an Asset Partner</span>
     </div>
 
+
     <a href="https://assets.sharepal.in" class="order-cta-btn" id="topCtaBtn">🎁 Claim Your Offer</a>
+    <button type="button" class="order-talk-btn" id="talkBtn">Talk to us</button>
+
+    <div class="order-illustrative">Illustrative, based on an asset worth ₹1 lakh.</div>
     </div>
   </div>
 
   </div>
   <!-- END HERO WRAPPER -->
 
-  <!-- TIER-MATCHED EXAMPLE -->
+  <!-- EARNINGS CALCULATOR -->
+  <div class="body-section">
+    <div class="inner">
+    <h3>Calculate Your Earnings</h3>
+    <p class="section-subtext">Slide to set your amount, then pick a time period.</p>
+
+    <div class="calc-card">
+      <div class="calc-top">
+        <div class="calc-top-row">
+          <label class="calc-label" for="calcSlider">You purchase asset worth</label>
+          <div class="calc-amount" id="calcAmount">₹1 L</div>
+        </div>
+        <input type="range" class="calc-slider" id="calcSlider" min="50000" max="500000" step="50000" value="100000">
+        <div class="calc-range-labels"><span>₹50K</span><span>₹5 L</span></div>
+      </div>
+
+      <div class="calc-tenure">
+        <div class="calc-tenure-title">For time period of</div>
+        <div class="calc-tenure-btns" role="group" aria-label="Time period">
+          <button type="button" class="calc-tbtn active" data-months="12" data-rate="13" aria-pressed="true"><span class="t">12 months</span></button>
+          <button type="button" class="calc-tbtn" data-months="24" data-rate="14" aria-pressed="false"><span class="t">24 months</span></button>
+          <button type="button" class="calc-tbtn" data-months="36" data-rate="15" aria-pressed="false"><span class="t">36 months</span></button>
+        </div>
+      </div>
+
+      <div class="calc-row">
+        <div>
+          <div class="calc-row-title">Offer bonus<span class="calc-chip">CASHBACK</span></div>
+          <div class="calc-row-sub">5% of asset cost · one-time</div>
+        </div>
+        <div class="calc-row-val bonus" id="calcBonus">+₹5,000</div>
+      </div>
+
+      <div class="calc-total">
+        <div>
+          <div class="calc-total-label">Monthly earning</div>
+          <div class="calc-total-sub" id="calcTotalSub">for 12 months</div>
+        </div>
+        <div class="calc-total-val" id="calcTotal">₹1,083 <small>/ mo</small></div>
+      </div>
+    </div>
+    <p class="calc-foot">*Illustrative. Actual earnings depend on the asset(s) you choose.</p>
+    </div>
+  </div>
+
+  <!-- EARNINGS SUMMARY: follows the calculator above -->
   <div class="body-section">
     <div class="inner">
     <div class="example-card">
       <div class="example-head">
-        <span class="example-tag">Matched For You</span>
-        <span class="example-asset" id="exAssetName">—</span>
+        <span class="example-tag">Earnings Summary</span>
+        <span class="example-asset" id="exSummary">₹1 L · 12 months</span>
       </div>
       <div class="example-cols">
         <div class="example-col">
           <div class="example-col-label">You Pay</div>
           <div class="example-item">
-            <div class="example-item-name">Asset Cost</div>
-            <div class="example-item-val" id="exAssetCost">₹0</div>
+            <div class="example-item-name">Asset Worth</div>
+            <div class="example-item-val" id="exAmount">₹1,00,000</div>
           </div>
           <div class="example-item">
-            <div class="example-item-name">Tenure</div>
-            <div class="example-item-val" style="font-size:13px;">12 Months</div>
+            <div class="example-item-name">Time Period</div>
+            <div class="example-item-val" style="font-size:13px;" id="exTenure">12 Months</div>
           </div>
         </div>
         <div class="example-col">
           <div class="example-col-label">Your Earnings</div>
           <div class="example-item">
             <div class="example-item-name">Monthly Payout</div>
-            <div class="example-item-val green" id="exMonthly">₹0<sub>/mo</sub></div>
+            <div class="example-item-val green" id="exMonthly">₹1,083<sub>/mo</sub></div>
           </div>
           <div class="example-item">
-            <div class="example-item-name">Cashback</div>
-            <div class="example-item-val green" id="exWalletCredit">+₹0</div>
-            <div class="example-item-sub">3% instant on asset cost</div>
+            <div class="example-item-name">Offer Bonus</div>
+            <div class="example-item-val green" id="exBonus">+₹5,000</div>
+            <div class="example-item-sub">5% of asset cost · one-time</div>
           </div>
         </div>
         <div class="example-col">
           <div class="example-col-label">After Tenure</div>
           <div class="example-item">
             <div class="example-item-name">Asset Cost Back</div>
-            <div class="example-item-val" id="exAssetCostBack">₹0</div>
+            <div class="example-item-val" id="exBack">₹1,00,000</div>
           </div>
           <div class="example-item">
             <div class="example-item-name">Total Earning</div>
-            <div class="example-item-val green" id="exTotalEarning">+₹0</div>
+            <div class="example-item-val green" id="exTotalEarning">+₹13,000</div>
           </div>
         </div>
       </div>
       <div class="example-total-bar">
-        <span class="example-total-label">Total Payout (12 M)</span>
-        <span class="example-total-val" id="exTotalPayout">₹0</span>
+        <span class="example-total-label" id="exTotalLabel">Total Payout (12 M)</span>
+        <span class="example-total-val" id="exTotalPayout">₹1,13,000</span>
       </div>
     </div>
     </div>
@@ -580,7 +820,7 @@
       </div>
       <div class="bb-divider"></div>
       <div class="bb-group">
-        <div class="bb-label rent">Rental Benefits<span class="bb-line"></span></div>
+        <div class="bb-label rent">Rental Benefits on Future Orders<span class="bb-line"></span></div>
         <div class="bb-tiles bb-rent-tiles">
           <div class="bb-tile rent">
             <div class="bb-tile-icon">🎟️</div>
@@ -631,49 +871,185 @@
   </button>
 </div>
 
+<div class="cb-overlay" id="cbOverlay" hidden>
+  <div class="cb-modal" role="dialog" aria-modal="true" aria-labelledby="cbTitle">
+    <button type="button" class="cb-close" id="cbClose" aria-label="Close">&times;</button>
+
+    <div id="cbFormView">
+      <h2 class="cb-title" id="cbTitle">Talk to us</h2>
+      <p class="cb-sub">We'll call you back on the mobile number linked to your order.</p>
+      <div class="cb-order">Order <b id="cbOrder">#—</b></div>
+      <div class="cb-error" id="cbError" role="alert"></div>
+      <button type="button" class="cb-submit" id="cbSubmit">Request Call Back</button>
+      <p class="cb-consent">By requesting a call back, you agree to be contacted by SharePal about the Asset Partner Program.</p>
+    </div>
+
+    <div id="cbDoneView" hidden>
+      <div class="cb-check">
+        <svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="#030D31" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
+      </div>
+      <h2 class="cb-title">Request received</h2>
+      <p class="cb-sub">Thanks! Our team will call you back on the mobile number linked to your order.</p>
+      <button type="button" class="cb-submit" id="cbDoneBtn">Done</button>
+    </div>
+  </div>
+</div>
+
 <script>
-  // ── TIER LOOKUP TABLE (real figures from current asset catalog) ──
-  const TIERS = [
-    { max: 5000,      name: "DJI Pocket 4",    cost: 52500, monthly: 613, total12m: 59850 },
-    { max: 10000,     name: "PlayStation 5",   cost: 64500, monthly: 753, total12m: 73530 },
-    { max: Infinity,  name: "DJI Pocket 4P",   cost: 84500, monthly: 986, total12m: 96330 },
-  ];
-
   const inr = (n) => '₹' + Math.round(n).toLocaleString('en-IN');
-
-  function getTier(orderAmount) {
-    return TIERS.find(t => orderAmount < t.max) || TIERS[TIERS.length - 1];
-  }
 
   const params = new URLSearchParams(window.location.search);
   const orderId = params.get('order') || 'BANGA1789738966206R';
   const orderAmount = parseFloat(params.get('amount')) || 1870;
 
-  const tier = getTier(orderAmount);
-  const walletCredit = Math.round(tier.cost * 0.03);
-  const finalAmount = Math.max(orderAmount - walletCredit, 0);
-  const leftoverCredit = Math.max(walletCredit - orderAmount, 0);
+  // static campaign cashback: the same for every customer
+  const CASHBACK = 5000;
+  const BONUS_PCT = 5;                 // offer bonus: one-time cashback, as % of asset cost
+  const finalAmount = Math.max(orderAmount - CASHBACK, 0);
 
   document.getElementById('orderIdText').textContent = '#' + orderId;
   document.getElementById('rowOrderAmt').textContent = inr(orderAmount);
-  document.getElementById('rowCreditLabel').textContent = 'Instant cashback (' + tier.name + ')';
-  document.getElementById('rowCreditAmt').textContent = '−' + inr(Math.min(walletCredit, orderAmount));
+  document.getElementById('rowCreditLabel').textContent = 'Instant cashback';
+  document.getElementById('rowCreditAmt').textContent = '−' + inr(CASHBACK);
   document.getElementById('rowFinalAmt').textContent = inr(finalAmount);
 
-  document.getElementById('oeMonthly').textContent = inr(tier.monthly) + '/mo';
-  document.getElementById('oeAssetName').textContent = tier.name;
+  // split the flat cashback: bank transfer is capped at the order value, the rest stays in the wallet
+  const toBank = Math.min(CASHBACK, orderAmount);
+  const inWallet = CASHBACK - toBank;
+  document.getElementById('rowRemaining').innerHTML =
+    '<div class="ob-title">Where your cashback goes</div>' +
+    '<div class="ob-row main"><span>To your bank<span class="ob-sub">up to your order value</span></span><span>' + inr(toBank) + '</span></div>' +
+    (inWallet > 0
+      ? '<div class="ob-row"><span>Stays in wallet<span class="ob-sub">use on future orders</span></span><span>' + inr(inWallet) + '</span></div>'
+      : '') +
+    '<div class="ob-total"><span>Total cashback</span><span>' + inr(CASHBACK) + '</span></div>';
 
-  document.getElementById('exAssetName').textContent = tier.name;
-  document.getElementById('exAssetCost').textContent = inr(tier.cost);
-  document.getElementById('exMonthly').innerHTML = inr(tier.monthly) + '<sub>/mo</sub>';
-  document.getElementById('exWalletCredit').textContent = '+' + inr(walletCredit);
-  document.getElementById('exAssetCostBack').textContent = inr(tier.cost);
-  document.getElementById('exTotalEarning').textContent = '+' + inr(tier.total12m - tier.cost);
-  document.getElementById('exTotalPayout').textContent = inr(tier.total12m);
+  // ── EARNINGS CALCULATOR ──
+  const calcSlider = document.getElementById('calcSlider');
+  let calcMonths = 12, calcRate = 13;  // defaults match the pre-selected 12-month button
 
-  if (leftoverCredit > 0) {
-    document.getElementById('rowCreditLabel').textContent = 'Cashback used (₹' + Math.round(leftoverCredit).toLocaleString('en-IN') + ' left over)';
+  function fmtAmt(n) {
+    if (n >= 100000) return '₹' + (Math.round(n / 1000) / 100) + ' L';
+    return '₹' + Math.round(n / 1000) + 'K';
   }
+  function computeEarnings(amount, ratePct, months) {
+    return {
+      monthly: Math.round(amount * ratePct / 100 / 12),           // recurring payout at the tenure rate
+      bonus:   Math.round(amount * BONUS_PCT / 100),              // one-time cashback
+      earned:  Math.round(amount * ratePct / 100 * months / 12)   // total payouts across the whole tenure
+    };
+  }
+  function renderCalc() {
+    const amt = Number(calcSlider.value);
+    const e = computeEarnings(amt, calcRate, calcMonths);
+    const pct = (amt - Number(calcSlider.min)) / (Number(calcSlider.max) - Number(calcSlider.min)) * 100;
+    calcSlider.style.setProperty('--pct', pct + '%');
+    calcSlider.setAttribute('aria-valuetext', fmtAmt(amt));
+    document.getElementById('calcAmount').textContent = fmtAmt(amt);
+    document.getElementById('calcBonus').textContent = '+' + inr(e.bonus);
+    document.getElementById('calcTotal').innerHTML = inr(e.monthly) + ' <small>/ mo</small>';
+    document.getElementById('calcTotalSub').textContent = 'for ' + calcMonths + ' months';
+
+    // the summary card below follows the calculator
+    document.getElementById('exSummary').textContent = fmtAmt(amt) + ' · ' + calcMonths + ' months';
+    document.getElementById('exAmount').textContent = inr(amt);
+    document.getElementById('exTenure').textContent = calcMonths + ' Months';
+    document.getElementById('exMonthly').innerHTML = inr(e.monthly) + '<sub>/mo</sub>';
+    document.getElementById('exBonus').textContent = '+' + inr(e.bonus);
+    document.getElementById('exBack').textContent = inr(amt);
+    document.getElementById('exTotalEarning').textContent = '+' + inr(e.earned);
+    document.getElementById('exTotalLabel').textContent = 'Total Payout (' + calcMonths + ' M)';
+    document.getElementById('exTotalPayout').textContent = inr(amt + e.earned);
+  }
+  calcSlider.addEventListener('input', renderCalc);
+  document.querySelectorAll('.calc-tbtn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      calcMonths = Number(btn.dataset.months);
+      calcRate = Number(btn.dataset.rate);
+      document.querySelectorAll('.calc-tbtn').forEach(function (b) {
+        const on = (b === btn);
+        b.classList.toggle('active', on);
+        b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      renderCalc();
+    });
+  });
+  renderCalc();
+
+  // ── TALK TO US: CALLBACK POPUP ──
+  // Point this at the endpoint that should receive callback requests (CRM / WebEngage / webhook).
+  // The request carries only the order ID and amount: the backend looks the customer up from the order.
+  // While this is empty the button only logs to the console and DOES NOT send anything.
+  const CALLBACK_ENDPOINT = '';
+
+  const cbOverlay = document.getElementById('cbOverlay');
+  const cbError   = document.getElementById('cbError');
+  const cbSubmit  = document.getElementById('cbSubmit');
+  let cbLastFocus = null, cbSending = false;
+
+  document.getElementById('cbOrder').textContent = '#' + orderId;
+
+  function cbShow(view) {
+    document.getElementById('cbFormView').hidden = (view !== 'form');
+    document.getElementById('cbDoneView').hidden = (view !== 'done');
+  }
+  function openCallback() {
+    cbLastFocus = document.activeElement;
+    cbShow('form');
+    cbError.textContent = '';
+    cbSubmit.disabled = false;
+    cbSubmit.textContent = 'Request Call Back';
+    cbOverlay.hidden = false;
+    document.body.style.overflow = 'hidden';
+    cbSubmit.focus();
+  }
+  function closeCallback() {
+    cbOverlay.hidden = true;
+    document.body.style.overflow = '';
+    if (cbLastFocus && cbLastFocus.focus) cbLastFocus.focus();
+  }
+  async function sendCallback(payload) {
+    if (!CALLBACK_ENDPOINT) { console.warn('CALLBACK_ENDPOINT is not set: this request was NOT sent', payload); return; }
+    const res = await fetch(CALLBACK_ENDPOINT, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+  }
+
+  document.getElementById('talkBtn').addEventListener('click', openCallback);
+  document.getElementById('cbClose').addEventListener('click', closeCallback);
+  document.getElementById('cbDoneBtn').addEventListener('click', closeCallback);
+  cbOverlay.addEventListener('click', function (e) { if (e.target === cbOverlay) closeCallback(); });
+  document.addEventListener('keydown', function (e) {
+    if (cbOverlay.hidden) return;
+    if (e.key === 'Escape') { closeCallback(); return; }
+    if (e.key === 'Tab') {                       // keep keyboard focus inside the popup
+      const f = Array.prototype.filter.call(
+        cbOverlay.querySelectorAll('button'),
+        function (el) { return !el.disabled && el.offsetParent !== null; });
+      if (!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  });
+  cbSubmit.addEventListener('click', async function () {
+    if (cbSending) return;
+    // with a live endpoint, never send the page's built-in demo order ID
+    if (CALLBACK_ENDPOINT && !params.has('order')) {
+      cbError.textContent = "We couldn't find your order details. Please open this page from your WhatsApp message.";
+      return;
+    }
+    cbSending = true; cbSubmit.disabled = true; cbSubmit.textContent = 'Sending…'; cbError.textContent = '';
+    try {
+      await sendCallback({ order: orderId, amount: orderAmount, source: 'order-offer-page', requestedAt: new Date().toISOString() });
+      cbShow('done');
+      document.getElementById('cbDoneBtn').focus();   // the button that was focused is now hidden
+    } catch (err) {
+      cbError.textContent = "Couldn't send your request. Please try again.";
+      cbSubmit.disabled = false; cbSubmit.textContent = 'Request Call Back';
+    } finally { cbSending = false; }
+  });
 
   const fabMain = document.getElementById('fabMain');
   const fabStack = document.getElementById('fabStack');
